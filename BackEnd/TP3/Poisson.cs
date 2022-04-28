@@ -10,14 +10,19 @@ namespace TP1SIM.BackEnd.TP3
     class Poisson : Dist
     {
         private double lambda;
+        private int[] numeritos;
 
 
-        public void set(double lambda)
+        public void set(int[] numeritos, double lambda)
         {
+            this.numeritos = numeritos;
             this.lambda = lambda;
         }
-
-        public override void chiCuadrado(int muestra, double[] numeritos, int eventos, DataGridView tabla)
+        public int[] getNumeritos()
+        {
+            return this.numeritos;
+        }
+        public override void chiCuadrado(int muestra, int eventos, DataGridView tabla)
         {
 
             double chi = 0;
@@ -27,6 +32,13 @@ namespace TP1SIM.BackEnd.TP3
             for (int i = 0; i < eventos; i++)
             {
                 DataGridViewRow row = new DataGridViewRow();
+
+                tabla.ColumnCount = 4;
+
+                tabla.Columns[0].Name = "Evento";
+                tabla.Columns[1].Name = "Frecuencia Esperada";
+                tabla.Columns[2].Name = "Chi";
+                tabla.Columns[3].Name = "Chi Acumulado";
 
                 double prob = (Math.Pow(Math.E, -lambda) * Math.Pow(lambda, i)) / factorial(i);
                 double fe = prob * muestra;

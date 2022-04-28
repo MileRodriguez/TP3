@@ -234,7 +234,7 @@
             this.gpBx_Normal.Controls.Add(this.label1);
             this.gpBx_Normal.Controls.Add(this.lbl_Media);
             this.gpBx_Normal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpBx_Normal.Location = new System.Drawing.Point(231, 100);
+            this.gpBx_Normal.Location = new System.Drawing.Point(231, 102);
             this.gpBx_Normal.Name = "gpBx_Normal";
             this.gpBx_Normal.Size = new System.Drawing.Size(890, 67);
             this.gpBx_Normal.TabIndex = 4;
@@ -273,6 +273,7 @@
             this.btn_GenerarNormal.TabIndex = 4;
             this.btn_GenerarNormal.Text = "Generar";
             this.btn_GenerarNormal.UseVisualStyleBackColor = true;
+            this.btn_GenerarNormal.Click += new System.EventHandler(this.btn_GenerarNormal_Click);
             // 
             // txt_Varianza
             // 
@@ -331,6 +332,7 @@
             this.btn_GenerarExp.TabIndex = 4;
             this.btn_GenerarExp.Text = "Generar";
             this.btn_GenerarExp.UseVisualStyleBackColor = true;
+            this.btn_GenerarExp.Click += new System.EventHandler(this.btn_GenerarExp_Click);
             // 
             // txt_MediaExp
             // 
@@ -395,6 +397,7 @@
             this.btn_GenerarPoisson.TabIndex = 3;
             this.btn_GenerarPoisson.Text = "Generar";
             this.btn_GenerarPoisson.UseVisualStyleBackColor = true;
+            this.btn_GenerarPoisson.Click += new System.EventHandler(this.btn_GenerarPoisson_Click);
             // 
             // lbl_LambdaPoisson
             // 
@@ -473,8 +476,8 @@
             this.Controls.Add(this.dgv_ChiCuadrado);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.gpBx_ExpNeg);
-            this.Controls.Add(this.dtv_nrosRnd);
             this.Controls.Add(this.gpBx_Normal);
+            this.Controls.Add(this.dtv_nrosRnd);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gpBx_Poisson);
             this.Controls.Add(this.pictureBox1);

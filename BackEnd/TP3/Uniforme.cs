@@ -23,7 +23,7 @@ namespace TP1SIM.BackEnd.TP3
             return this.numeritos;
         }
 
-        public override void chiCuadrado(int muestra, double[] numeritos, int cantidadIntervalos, DataGridView tabla)
+        public override void chiCuadrado(int muestra, int cantidadIntervalos, DataGridView tabla)
         {
             double min = numeritos.Min();
             double max = numeritos.Max();

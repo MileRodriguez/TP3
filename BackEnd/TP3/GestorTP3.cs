@@ -60,9 +60,28 @@ namespace TP1SIM.BackEnd.TP3
             }
         }
 
+        public void cargarTabla(int[] numeritos, DataGridView tabla)
+        {
+            tabla.ColumnCount = 2;
+
+            tabla.Columns[0].Name = "Iteracion";
+            tabla.Columns[1].Name = "RND";
+
+            for (int i = 0; i < (numeritos.Length); i++)
+            {
+                int indice = i + 1;
+                tabla.Rows.Add(indice.ToString(), numeritos[i].ToString());
+            }
+        }
+
         public void cargarTablaHistograma(double[] numeritos, int cantidadIntervalosOEventos, int muestra, DataGridView tabla)
         {
-            distribucion.chiCuadrado(muestra, numeritos, cantidadIntervalosOEventos, tabla);
+            distribucion.chiCuadrado(muestra, cantidadIntervalosOEventos, tabla);
+        }
+
+        public void cargarTablaHistograma(int[] numeritos, int cantidadIntervalosOEventos, int muestra, DataGridView tabla)
+        {
+            distribucion.chiCuadrado(muestra, cantidadIntervalosOEventos, tabla);
         }
 
         protected double CalcularValorCritico(int cantidadIntervalos, int tamanioMuestra, int datosEmpiricos)

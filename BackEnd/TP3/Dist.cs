@@ -11,7 +11,7 @@ namespace TP1SIM.BackEnd.TP3
     {
         protected double estadisticoPrueba;
 
-        public abstract void chiCuadrado(int muestra, double[] numeritos, int cantidadIntervalos, DataGridView tabla);
+        public abstract void chiCuadrado(int muestra, int cantidadIntervalos, DataGridView tabla);
 
     }
 }

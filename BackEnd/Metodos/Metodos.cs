@@ -24,13 +24,13 @@ namespace TP1SIM.BackEnd.Metodos
 
         public double[] Normal_conv(double[] nums, double avg, double sd)
         {
-            double[] updated_nums = new double[nums.Length];
+            double[] updated_nums = new double[nums.Length/12];
             int count = 0;
             double sum = 0;
             int ciclo = 0;
 
 
-            for (int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < updated_nums.Length; i++)
             {
                 sum += nums[i];
                 count++;
@@ -48,19 +48,26 @@ namespace TP1SIM.BackEnd.Metodos
 
         public double[] Normal_box(double[] nums, double avg, double sd)
         {
-            double[] updated_nums = new double[nums.Length];
+            double[] updated_nums = new double[nums.Length/2];
             bool flag_cos = true;
 
-            for (int i = 1; i < nums.Length; i += 2)
+            for (int i = 1; i < updated_nums.Length; i += 2)
             {
                 if (flag_cos)
                 {
-                    updated_nums[i - 1] = (Math.Sqrt(-2 * Math.Log(nums[i - 1])) * Math.Cos(2 * Math.PI * nums[i])) * sd + avg;
+                    if(i == 1)
+                    {
+                        updated_nums[i - 1] = (Math.Sqrt(-2 * Math.Log(nums[i - 1])) * Math.Cos(2 * Math.PI * nums[i])) * sd + avg;
+                    }
+                    else
+                    {
+                        updated_nums[i - 2] = (Math.Sqrt(-2 * Math.Log(nums[i - 2])) * Math.Cos(2 * Math.PI * nums[i])) * sd + avg;
+                    }
                     flag_cos = false;
                 }
                 else
                 {
-                    updated_nums[i - 1] = (Math.Sqrt(-2 * Math.Log(nums[i - 1])) * Math.Sin(2 * Math.PI * nums[i])) * sd + avg;
+                    updated_nums[i - 2] = (Math.Sqrt(-2 * Math.Log(nums[i - 1])) * Math.Sin(2 * Math.PI * nums[i])) * sd + avg;
                     flag_cos = true;
                 }
 

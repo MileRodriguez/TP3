@@ -63,7 +63,6 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
 
             int N = Convert.ToInt32(num_Muestra.Text);
             double[] numeritos = generarNumeros(N);
-            double[] nros = new double[N];
             double media = 0;
 
             if (num_Muestra.Text.Equals("") || txt_Lambda.Text.Equals("") && txt_MediaExp.Text.Equals(""))
@@ -73,7 +72,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
 
             else
             {
-                if (txt_Media != null)
+                if (txt_Media.Text != null)
                 {
                     media = Convert.ToDouble(txt_MediaExp.Text);
                     exo.set(1/media, metodos.ExpNegativa(numeritos, media));
@@ -84,33 +83,48 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                     media = 1 / lambda;
                     exo.set(lambda, metodos.ExpNegativa(numeritos, media));
                 }
-                gestor.getSHITdone(generarNumeros(N), exo, Convert.ToInt32(num_Intervalos.Text), N);
-                
+
+                dtv_nrosRnd.Rows.Clear();
+                dgv_ChiCuadrado.Rows.Clear();
+                gestor.getSHITdone(numeritos, exo, Convert.ToInt32(num_Intervalos.Text), N);
+                gestor.cargarTabla(exo.getNumeritos(), dtv_nrosRnd);
+                gestor.cargarTablaHistograma(exo.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                dtv_nrosRnd.Refresh();
+                dgv_ChiCuadrado.Refresh();
+
             }
         }
 
 
         private void btn_GenerarPoisson_Click(object sender, EventArgs e)
         {
-            /*Metodos metodos = new Metodos();
-            Random rnd = new Random();
-            */
+            Poisson poisson = new Poisson();
             int N = Convert.ToInt32(num_Muestra.Text);
-            double[] nros = new double[N];/*
-            double media = Convert.ToDouble(txt_LambdaPoisson);
-
-            for (int j = N; j == 0; j--)
+            double[] numeritos = generarNumeros(N);
+            if (num_Muestra.Text.Equals("") || txt_LambdaPoisson.Text.Equals(""))
             {
-                nros.Append(rnd.NextDouble());
+                MessageBox.Show("Complete los campos necesarios.");
             }
-            //return metodos.Poisson(nros, media)*/
-        }
+
+            else
+            {
+
+                poisson.set(metodos.Poisson(numeritos, Convert.ToInt32(txt_LambdaPoisson.Text)), Convert.ToInt32(txt_LambdaPoisson.Text));
+                dtv_nrosRnd.Rows.Clear();
+                dgv_ChiCuadrado.Rows.Clear();
+                gestor.getSHITdone(numeritos, poisson, Convert.ToInt32(num_Intervalos.Text), N);
+                gestor.cargarTabla(poisson.getNumeritos(), dtv_nrosRnd);
+                gestor.cargarTablaHistograma(poisson.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                dtv_nrosRnd.Refresh();
+                dgv_ChiCuadrado.Refresh();
+            }
+            }
 
         private void btn_GenerarNormal_Click(object sender, EventArgs e)
         {
             Normal normal = new Normal();
             int N = Convert.ToInt32(num_Muestra.Text);
-            double[] nros = new double[N];
+            double[] numeritos = new double[0];
 
             if (!rB_Box.Checked && !rB_Convolucion.Checked)
             {
@@ -131,19 +145,29 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                     }
                     else
                     {
-                        double[] num2 = new double[N];
+                        
                         if (rB_Box.Checked)
                         {
-                            num2 = metodos.Normal_conv(generarNumeros(N), Convert.ToDouble(txt_Media.Text), Convert.ToDouble(txt_Varianza.Text));
-                            normal.set(Convert.ToDouble(txt_Varianza.Text), Convert.ToDouble(txt_Media.Text), metodos.Normal_box(generarNumeros(N), Convert.ToDouble(txt_Media.Text), Convert.ToDouble(txt_Varianza.Text)));
+                            numeritos = generarNumeros(N * 2);
+                            double[] num2 = new double[numeritos.Length];
+                            num2 = metodos.Normal_box(numeritos, Convert.ToDouble(txt_Media.Text), Convert.ToDouble(txt_Varianza.Text));
+                            normal.set(Convert.ToDouble(txt_Varianza.Text), Convert.ToDouble(txt_Media.Text), num2);
                         }
                         else
                         {
-                            num2 = metodos.Normal_conv(generarNumeros(N), Convert.ToDouble(txt_Media.Text), Convert.ToDouble(txt_Varianza.Text));
-                            normal.set(Convert.ToDouble(txt_Varianza.Text), Convert.ToDouble(txt_Media.Text), metodos.Normal_conv(generarNumeros(N), Convert.ToDouble(txt_Media.Text), Convert.ToDouble(txt_Varianza.Text)));
+                            numeritos = generarNumeros(N * 12);
+                            double[] num2 = new double[numeritos.Length];
+                            num2 = metodos.Normal_conv(numeritos, Convert.ToDouble(txt_Media.Text), Convert.ToDouble(txt_Varianza.Text));
+                            normal.set(Convert.ToDouble(txt_Varianza.Text), Convert.ToDouble(txt_Media.Text), num2);
                         }
-                        gestor.cargarTabla(num2, dtv_nrosRnd);
-                        gestor.getSHITdone(generarNumeros(N), normal, Convert.ToInt32(num_Intervalos.Text), N);
+
+                        dtv_nrosRnd.Rows.Clear();
+                        dgv_ChiCuadrado.Rows.Clear();
+                        gestor.getSHITdone(numeritos, normal, Convert.ToInt32(num_Intervalos.Text), N);
+                        gestor.cargarTabla(normal.getNumeritos(), dtv_nrosRnd);
+                        gestor.cargarTablaHistograma(normal.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                        dtv_nrosRnd.Refresh();
+                        dgv_ChiCuadrado.Refresh();
                     }
                 }
             }

@@ -18,7 +18,12 @@ namespace TP1SIM.BackEnd.TP3
             this.numeritos = numeritos;
         }
 
-        public override void chiCuadrado(int muestra, double[] numeritos, int cantidadIntervalos, DataGridView tabla)
+        public double[] getNumeritos()
+        {
+            return this.numeritos;
+        }
+
+        public override void chiCuadrado(int muestra, int cantidadIntervalos, DataGridView tabla)
         {
 
             double min = numeritos.Min();
@@ -36,10 +41,18 @@ namespace TP1SIM.BackEnd.TP3
             for (int i = 0; i < cantidadIntervalos; i++)
             {
                 DataGridViewRow row = new DataGridViewRow();
+                tabla.ColumnCount = 7;
 
+                tabla.Columns[0].Name = "Iteracion";
+                tabla.Columns[1].Name = "Limite Inferior";
+                tabla.Columns[2].Name = "Limite Superior";
+                tabla.Columns[3].Name = "Frecuencia Observada";
+                tabla.Columns[4].Name = "Frecuencia Esperada";
+                tabla.Columns[5].Name = "Chi";
+                tabla.Columns[6].Name = "Chi Acumulado";
 
                 limInf = min + (paso * i);
-                limSup = min + (paso * i + 1);
+                limSup = min + (paso * (i + 1));
                 fo = numeritos.Count(numerito => limInf <= numerito && numerito < limSup);
                 fe = ((1 - Math.Pow(Math.E, (-lambda * limSup))) - (1 - Math.Pow(Math.E, (-lambda*limInf))))*numeritos.Length;
                 chi = Math.Pow((fe - fo), 2) / fe;
