@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53523C88-07CC-466E-A43C-A23869963872}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TP1SIM</RootNamespace>
+    <AssemblyName>TP1SIM</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BackEnd\Congruencial\metodoCongruencial.cs" />
+    <Compile Include="BackEnd\ConteoFrecuencia.cs" />
+    <Compile Include="BackEnd\Metodos\Distribucion.cs" />
+    <Compile Include="BackEnd\Metodos\Metodos.cs" />
+    <Compile Include="BackEnd\PruebasBondad\PruebaBondad.cs" />
+    <Compile Include="BackEnd\PruebasBondad\PruebaChiCuadrado.cs" />
+    <Compile Include="BackEnd\PruebasBondad\PruebaKS.cs" />
+    <Compile Include="BackEnd\Soporte\ContadorFrecuencias.cs" />
+    <Compile Include="BackEnd\Soporte\GestorPruebaBondad.cs" />
+    <Compile Include="BackEnd\TP3\Dist.cs" />
+    <Compile Include="BackEnd\TP3\ExponencialNegativa.cs" />
+    <Compile Include="BackEnd\TP3\GestorTP3.cs" />
+    <Compile Include="BackEnd\TP3\Normal.cs" />
+    <Compile Include="BackEnd\TP3\Poisson.cs" />
+    <Compile Include="BackEnd\TP3\tablaRND.cs">
+      <DependentUpon>tablaRND.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="BackEnd\TP3\tablaRND.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tablaRND.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="BackEnd\TP3\Uniforme.cs" />
+    <Compile Include="FrontEnd\Pantallas\FrmPruebaBondad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\FrmPruebaBondad.Designer.cs">
+      <DependentUpon>FrmPruebaBondad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Generar\Chi-CuadradoCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Generar\Chi-CuadradoCM.Designer.cs">
+      <DependentUpon>Chi-CuadradoCM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Generar\GenerarNumeros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Generar\GenerarNumeros.Designer.cs">
+      <DependentUpon>GenerarNumeros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Chi-Cuadrado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Chi-Cuadrado.Designer.cs">
+      <DependentUpon>Chi-Cuadrado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Chi-CuadradoCM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Chi-CuadradoCM.Designer.cs">
+      <DependentUpon>Chi-CuadradoCM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\TP3\TP3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrontEnd\Pantallas\TP3\TP3.Designer.cs">
+      <DependentUpon>TP3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrontEnd\Pantallas\FrmPruebaBondad.resx">
+      <DependentUpon>FrmPruebaBondad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrontEnd\Pantallas\Generar\Chi-CuadradoCM.resx">
+      <DependentUpon>Chi-CuadradoCM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrontEnd\Pantallas\Generar\GenerarNumeros.resx">
+      <DependentUpon>GenerarNumeros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrontEnd\Pantallas\Chi-Cuadrado.resx">
+      <DependentUpon>Chi-Cuadrado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrontEnd\Pantallas\Chi-CuadradoCM.resx">
+      <DependentUpon>Chi-CuadradoCM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrontEnd\Pantallas\Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrontEnd\Pantallas\TP3\TP3.resx">
+      <DependentUpon>TP3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="BackEnd\TP3\tablaRND.xsc">
+      <DependentUpon>tablaRND.xsd</DependentUpon>
+    </None>
+    <None Include="BackEnd\TP3\tablaRND.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>tablaRND.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="BackEnd\TP3\tablaRND.xss">
+      <DependentUpon>tablaRND.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FrontEnd\Graficos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dakirby309-Windows-8-Metro-Apps-Calculator-Metro.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.WinFX.targets" />
+</Project>
