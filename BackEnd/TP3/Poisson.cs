@@ -128,26 +128,19 @@ namespace TP1SIM.BackEnd.TP3
                 }
                 double fo = count;
                 double prob = (Math.Pow(Math.E, -lambda) * Math.Pow(lambda, eventosArray[i])) / factorial(eventosArray[i]);
-                double fe = Math.Truncate(prob * muestra);
+                double fe = Math.Round(prob * muestra);
                 Object[] cells = { eventosArray[i], fo, fe};
                 row.CreateCells(tabla, cells);
                 tabla.Rows.Add(row);
                 count = 0;
             }
-
-
-            
-
         }
 
         private double factorial(double number)
         {
-            int i, fact = 1;
-            for (i = 1; i <= number; i++)
-            {
-                fact = fact * i;
-            }
-            return fact;
+            if (number == 0)
+                return 1;
+            return number * factorial(number - 1);
         }
 
         public double getEstadisticoPrueba()
