@@ -48,6 +48,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             gpBx_Poisson.Visible = false;
             gpBx_ExpNeg.Visible = true;
             cmb_intervalos.Enabled = true;
+            txt_Lambda.Enabled = false;
         }
 
         private void btn_Poisson_Click(object sender, EventArgs e)
@@ -57,6 +58,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             gpBx_ExpNeg.Visible = false;
             gpBx_Poisson.Visible = true;
             cmb_intervalos.Enabled = false;
+            cmb_intervalos.Text = "";
         }
 
         private void btn_GenerarExp_Click(object sender, EventArgs e)
@@ -150,8 +152,8 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                 gestor.cargarTablaHistograma(poisson.getNumeritos(), 0, Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                 dtv_nrosRnd.Refresh();
                 dgv_ChiCuadrado.Refresh();
-                //gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
-                //dgv_redux.Refresh();
+                gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
+                dgv_redux.Refresh();
 
 
             }

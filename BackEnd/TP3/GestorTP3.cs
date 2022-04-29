@@ -82,69 +82,46 @@ namespace TP1SIM.BackEnd.TP3
 
         protected double CalcularValorCritico(int cantidadIntervalos, int tamanioMuestra, int datosEmpiricos)
         {
-            double[] valoresCriticosNormal = { 11.1, 14.1, 21.0, 27.6 };
-            double[] valoresCriticosPoissonExp = { 12.6, 15.5, 22.4, 28.9 };
-            double[] valoresCriticosUniforme = { 14.1, 16.9, 23.7, 30.1 };
+            double[] valoresCriticos = { 3.84, 5.99, 7.81, 9.49, 11.1, 12.6, 14.1, 15.5, 16.9, 18.3, 19.7, 21.0, 22.4, 23.7, 25.0, 26.3, 27.6, 28.9, 30.1, 31.4, 32.7, 33.9, 35.2, 36.4, 37.7, 38.9, 40.1, 41.3, 42.6, 43.8 };
+            double[] vc_grandes = { 55.8, 67.5, 79.1, 90.5, 101.9, 113.1, 124.3 };
+            int grados_libertad = cantidadIntervalos - 1 - datosEmpiricos;
 
-            if(datosEmpiricos == 2)
+            if (cantidadIntervalos <= 30)
             {
-                switch (cantidadIntervalos)
+                valorCritico = valoresCriticos[grados_libertad - 1];
+            }
+            else
+            {
+                switch (grados_libertad)
                 {
-                    case 8:
-                        valorCritico = valoresCriticosNormal[0];
+                    case 40:
+                        valorCritico = vc_grandes[0];
                         break;
-                    case 10:
-                        valorCritico = valoresCriticosNormal[1];
+                    case 50:
+                        valorCritico = vc_grandes[1];
                         break;
-                    case 15:
-                        valorCritico = valoresCriticosNormal[2];
+                    case 60:
+                        valorCritico = vc_grandes[1];
                         break;
-                    case 20:
-                        valorCritico = valoresCriticosNormal[3];
+                    case 70:
+                        valorCritico = vc_grandes[1];
                         break;
+                    case 80:
+                        valorCritico = vc_grandes[1];
+                        break;
+                    case 90:
+                        valorCritico = vc_grandes[1];
+                        break;
+                    case 100:
+                        valorCritico = vc_grandes[1];
+                        break;
+                    default:
+                        valorCritico = 0;
+                        break;
+
                 }
             }
-
-            if (datosEmpiricos == 1)
-            {
-                switch (cantidadIntervalos)
-                {
-                    case 8:
-                        valorCritico = valoresCriticosPoissonExp[0];
-                        break;
-                    case 10:
-                        valorCritico = valoresCriticosPoissonExp[1];
-                        break;
-                    case 15:
-                        valorCritico = valoresCriticosPoissonExp[2];
-                        break;
-                    case 20:
-                        valorCritico = valoresCriticosPoissonExp[3];
-                        break;
-                }
-            }
-
-            if (datosEmpiricos == 0)
-            {
-                switch (cantidadIntervalos)
-                {
-                    case 8:
-                        valorCritico = valoresCriticosUniforme[0];
-                        break;
-                    case 10:
-                        valorCritico = valoresCriticosUniforme[1];
-                        break;
-                    case 15:
-                        valorCritico = valoresCriticosUniforme[2];
-                        break;
-                    case 20:
-                        valorCritico = valoresCriticosUniforme[3];
-                        break;
-                }
-            }
-
             return valorCritico;
-
         }
 
 

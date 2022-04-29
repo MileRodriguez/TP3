@@ -77,6 +77,11 @@ namespace TP1SIM.BackEnd.Metodos
             int count = 0;
             do
             {
+                if (i == nums.Length - 1)
+                {
+                    nums = combustible(nums.Length);
+                    i = 0;
+                }
                 p *= nums[i++];
                 x++;
 
@@ -86,13 +91,6 @@ namespace TP1SIM.BackEnd.Metodos
                     x = -1;
                     p = 1;
                 }
-
-                if(i == nums.Length-1 && count != nums.Length-1)
-                {
-                    nums = combustible(nums.Length);
-                    i = 0;
-                }
-
 
             }
             while (count < updated_nums.Length);

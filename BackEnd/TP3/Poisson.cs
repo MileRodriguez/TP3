@@ -58,7 +58,7 @@ namespace TP1SIM.BackEnd.TP3
                 conjunto.Add(int.Parse(tabla.Rows[i].Cells[0].Value.ToString()));
                 fe += int.Parse(tabla.Rows[i].Cells[2].Value.ToString());
                 fo += int.Parse(tabla.Rows[i].Cells[1].Value.ToString());
-                if(fe > 5 || i == tabla.Rows.Count - 1)
+                if(fe >= 5 || i == tabla.Rows.Count - 1)
                 {
                     if (i == tabla.Rows.Count - 1 && fe < 5)
                     {
@@ -90,6 +90,8 @@ namespace TP1SIM.BackEnd.TP3
                 }
 
             }
+
+            estadisticoPrueba = chiA;
 
            
         }
