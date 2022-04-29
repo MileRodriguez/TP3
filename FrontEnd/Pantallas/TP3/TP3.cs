@@ -142,6 +142,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             {
 
                 poisson.set(metodos.Poisson(numeritos, Convert.ToInt32(txt_LambdaPoisson.Text)), Convert.ToInt32(txt_LambdaPoisson.Text));
+                dgv_redux.Rows.Clear();
                 dtv_nrosRnd.Rows.Clear();
                 dgv_ChiCuadrado.Rows.Clear();
                 
@@ -149,10 +150,31 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                 gestor.cargarTablaHistograma(poisson.getNumeritos(), 0, Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                 dtv_nrosRnd.Refresh();
                 dgv_ChiCuadrado.Refresh();
+                //gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
+                //dgv_redux.Refresh();
 
 
             }
-            //double valorCritico = gestor.decidirDistribución(numeritos, poisson, Convert.ToInt32(cmb_intervalos.Text), N);
+            double valorCritico = gestor.decidirDistribución(numeritos, poisson, Convert.ToInt32(dgv_redux.Rows.Count), N);
+            gestor.setEstadisticoPrueba(poisson.getEstadisticoPrueba());
+
+
+            txt_critico.Text = valorCritico.ToString();
+            txt_estadistico.Text = poisson.getEstadisticoPrueba().ToString();
+
+            lbl_final.Visible = true;
+            label5.Visible = true;
+
+            if (gestor.ResultadoExitoso())
+            {
+                lbl_final.Text = "Aprobada";
+                lbl_final.BackColor = Color.Green;
+            }
+            else
+            {
+                lbl_final.Text = "Rechazada";
+                lbl_final.BackColor = Color.Red;
+            }
         }
 
         private void btn_GenerarNormal_Click(object sender, EventArgs e)
