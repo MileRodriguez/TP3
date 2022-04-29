@@ -23,6 +23,11 @@ namespace TP1SIM.BackEnd.TP3
             return this.numeritos;
         }
 
+        public override void chiCuadradoRedux(DataGridView tabla, DataGridView tabRedux)
+        {
+
+        }
+
         public override void chiCuadrado(int muestra, int cantidadIntervalos, DataGridView tabla)
         {
             double min = numeritos.Min();
@@ -50,11 +55,11 @@ namespace TP1SIM.BackEnd.TP3
                 tabla.Columns[5].Name = "Chi";
                 tabla.Columns[6].Name = "Chi Acumulado";
 
-                limInf = min + (paso * i);
-                limSup = min + (paso * (i + 1));
+                limInf = Math.Round(min + (paso * i), 4);
+                limSup = Math.Round(min + (paso * (i + 1)), 4);
                 fo = numeritos.Count(numerito => limInf <= numerito && numerito < limSup);
                 fe = numeritos.Length / intervalos;
-                chi = Math.Pow((fe - fo), 2) / fe;
+                chi = Math.Round(Math.Pow((fe - fo), 2) / fe, 4);
                 chiA = chiA + chi;
 
                 Object[] cells = { i, limInf, limSup, fo, fe, chi, chiA };
@@ -66,5 +71,12 @@ namespace TP1SIM.BackEnd.TP3
 
             estadisticoPrueba = chiA;
         }
+        public double getEstadisticoPrueba()
+        {
+            return estadisticoPrueba;
+        }
+
     }
+
+    
 }

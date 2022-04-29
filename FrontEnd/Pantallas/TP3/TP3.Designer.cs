@@ -63,9 +63,16 @@
             this.dtv_nrosRnd = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.num_Muestra = new System.Windows.Forms.NumericUpDown();
-            this.num_Intervalos = new System.Windows.Forms.NumericUpDown();
+            this.txt_muestra = new System.Windows.Forms.TextBox();
+            this.cmb_intervalos = new System.Windows.Forms.ComboBox();
             this.dgv_ChiCuadrado = new System.Windows.Forms.DataGridView();
+            this.dgv_redux = new System.Windows.Forms.DataGridView();
+            this.txt_critico = new System.Windows.Forms.TextBox();
+            this.txt_estadistico = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lbl_final = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.gpBx_Uniforme.SuspendLayout();
@@ -74,20 +81,17 @@
             this.gpBx_Poisson.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtv_nrosRnd)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Muestra)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Intervalos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ChiCuadrado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_redux)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(25, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(190, 167);
+            this.pictureBox1.Size = new System.Drawing.Size(184, 163);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -211,7 +215,7 @@
             this.lbl_B.AutoSize = true;
             this.lbl_B.Location = new System.Drawing.Point(353, 30);
             this.lbl_B.Name = "lbl_B";
-            this.lbl_B.Size = new System.Drawing.Size(101, 16);
+            this.lbl_B.Size = new System.Drawing.Size(100, 16);
             this.lbl_B.TabIndex = 1;
             this.lbl_B.Text = "Límite Derecho:";
             // 
@@ -220,7 +224,7 @@
             this.lbl_A.AutoSize = true;
             this.lbl_A.Location = new System.Drawing.Point(34, 30);
             this.lbl_A.Name = "lbl_A";
-            this.lbl_A.Size = new System.Drawing.Size(104, 16);
+            this.lbl_A.Size = new System.Drawing.Size(103, 16);
             this.lbl_A.TabIndex = 0;
             this.lbl_A.Text = "Límite izquierdo:";
             // 
@@ -247,7 +251,7 @@
             this.rB_Convolucion.AutoSize = true;
             this.rB_Convolucion.Location = new System.Drawing.Point(509, 29);
             this.rB_Convolucion.Name = "rB_Convolucion";
-            this.rB_Convolucion.Size = new System.Drawing.Size(100, 20);
+            this.rB_Convolucion.Size = new System.Drawing.Size(99, 20);
             this.rB_Convolucion.TabIndex = 10;
             this.rB_Convolucion.TabStop = true;
             this.rB_Convolucion.Text = "Convolución";
@@ -258,7 +262,7 @@
             this.rB_Box.AutoSize = true;
             this.rB_Box.Location = new System.Drawing.Point(391, 28);
             this.rB_Box.Name = "rB_Box";
-            this.rB_Box.Size = new System.Drawing.Size(89, 20);
+            this.rB_Box.Size = new System.Drawing.Size(88, 20);
             this.rB_Box.TabIndex = 9;
             this.rB_Box.TabStop = true;
             this.rB_Box.Text = "Box-Muller";
@@ -294,7 +298,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(192, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 16);
+            this.label1.Size = new System.Drawing.Size(63, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Varianza:";
             // 
@@ -303,7 +307,7 @@
             this.lbl_Media.AutoSize = true;
             this.lbl_Media.Location = new System.Drawing.Point(26, 30);
             this.lbl_Media.Name = "lbl_Media";
-            this.lbl_Media.Size = new System.Drawing.Size(49, 16);
+            this.lbl_Media.Size = new System.Drawing.Size(48, 16);
             this.lbl_Media.TabIndex = 0;
             this.lbl_Media.Text = "Media:";
             // 
@@ -326,7 +330,7 @@
             // btn_GenerarExp
             // 
             this.btn_GenerarExp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_GenerarExp.Location = new System.Drawing.Point(767, 40);
+            this.btn_GenerarExp.Location = new System.Drawing.Point(767, 26);
             this.btn_GenerarExp.Name = "btn_GenerarExp";
             this.btn_GenerarExp.Size = new System.Drawing.Size(75, 23);
             this.btn_GenerarExp.TabIndex = 4;
@@ -353,7 +357,7 @@
             this.lbl_MediaExp.AutoSize = true;
             this.lbl_MediaExp.Location = new System.Drawing.Point(207, 30);
             this.lbl_MediaExp.Name = "lbl_MediaExp";
-            this.lbl_MediaExp.Size = new System.Drawing.Size(49, 16);
+            this.lbl_MediaExp.Size = new System.Drawing.Size(48, 16);
             this.lbl_MediaExp.TabIndex = 1;
             this.lbl_MediaExp.Text = "Media:";
             // 
@@ -362,7 +366,7 @@
             this.lbl_Lambda.AutoSize = true;
             this.lbl_Lambda.Location = new System.Drawing.Point(26, 30);
             this.lbl_Lambda.Name = "lbl_Lambda";
-            this.lbl_Lambda.Size = new System.Drawing.Size(61, 16);
+            this.lbl_Lambda.Size = new System.Drawing.Size(60, 16);
             this.lbl_Lambda.TabIndex = 0;
             this.lbl_Lambda.Text = "Lambda:";
             // 
@@ -404,7 +408,7 @@
             this.lbl_LambdaPoisson.AutoSize = true;
             this.lbl_LambdaPoisson.Location = new System.Drawing.Point(26, 30);
             this.lbl_LambdaPoisson.Name = "lbl_LambdaPoisson";
-            this.lbl_LambdaPoisson.Size = new System.Drawing.Size(61, 16);
+            this.lbl_LambdaPoisson.Size = new System.Drawing.Size(60, 16);
             this.lbl_LambdaPoisson.TabIndex = 0;
             this.lbl_LambdaPoisson.Text = "Lambda:";
             // 
@@ -413,16 +417,19 @@
             this.lbl_Muestra.AutoSize = true;
             this.lbl_Muestra.Location = new System.Drawing.Point(261, 15);
             this.lbl_Muestra.Name = "lbl_Muestra";
-            this.lbl_Muestra.Size = new System.Drawing.Size(59, 16);
+            this.lbl_Muestra.Size = new System.Drawing.Size(58, 16);
             this.lbl_Muestra.TabIndex = 12;
             this.lbl_Muestra.Text = "Muestra:";
             // 
             // dtv_nrosRnd
             // 
+            this.dtv_nrosRnd.AllowUserToAddRows = false;
+            this.dtv_nrosRnd.AllowUserToResizeColumns = false;
             this.dtv_nrosRnd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtv_nrosRnd.Location = new System.Drawing.Point(25, 185);
             this.dtv_nrosRnd.Name = "dtv_nrosRnd";
-            this.dtv_nrosRnd.Size = new System.Drawing.Size(190, 402);
+            this.dtv_nrosRnd.RowHeadersVisible = false;
+            this.dtv_nrosRnd.Size = new System.Drawing.Size(218, 402);
             this.dtv_nrosRnd.TabIndex = 8;
             // 
             // label3
@@ -430,14 +437,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 16);
+            this.label3.Size = new System.Drawing.Size(144, 16);
             this.label3.TabIndex = 0;
             this.label3.Text = "Cantidad de Intervalos:";
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.num_Muestra);
-            this.panel2.Controls.Add(this.num_Intervalos);
+            this.panel2.Controls.Add(this.txt_muestra);
+            this.panel2.Controls.Add(this.cmb_intervalos);
             this.panel2.Controls.Add(this.lbl_Muestra);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -446,33 +453,114 @@
             this.panel2.Size = new System.Drawing.Size(492, 48);
             this.panel2.TabIndex = 14;
             // 
-            // num_Muestra
+            // txt_muestra
             // 
-            this.num_Muestra.Location = new System.Drawing.Point(329, 11);
-            this.num_Muestra.Name = "num_Muestra";
-            this.num_Muestra.Size = new System.Drawing.Size(91, 22);
-            this.num_Muestra.TabIndex = 14;
+            this.txt_muestra.Location = new System.Drawing.Point(325, 13);
+            this.txt_muestra.Name = "txt_muestra";
+            this.txt_muestra.Size = new System.Drawing.Size(100, 22);
+            this.txt_muestra.TabIndex = 14;
             // 
-            // num_Intervalos
+            // cmb_intervalos
             // 
-            this.num_Intervalos.Location = new System.Drawing.Point(151, 11);
-            this.num_Intervalos.Name = "num_Intervalos";
-            this.num_Intervalos.Size = new System.Drawing.Size(91, 22);
-            this.num_Intervalos.TabIndex = 13;
+            this.cmb_intervalos.FormattingEnabled = true;
+            this.cmb_intervalos.Items.AddRange(new object[] {
+            "8",
+            "10",
+            "15",
+            "20"});
+            this.cmb_intervalos.Location = new System.Drawing.Point(153, 11);
+            this.cmb_intervalos.Name = "cmb_intervalos";
+            this.cmb_intervalos.Size = new System.Drawing.Size(91, 24);
+            this.cmb_intervalos.TabIndex = 13;
             // 
             // dgv_ChiCuadrado
             // 
+            this.dgv_ChiCuadrado.AllowUserToAddRows = false;
+            this.dgv_ChiCuadrado.AllowUserToResizeColumns = false;
             this.dgv_ChiCuadrado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_ChiCuadrado.Location = new System.Drawing.Point(237, 185);
+            this.dgv_ChiCuadrado.Location = new System.Drawing.Point(249, 185);
             this.dgv_ChiCuadrado.Name = "dgv_ChiCuadrado";
-            this.dgv_ChiCuadrado.Size = new System.Drawing.Size(563, 402);
+            this.dgv_ChiCuadrado.RowHeadersVisible = false;
+            this.dgv_ChiCuadrado.Size = new System.Drawing.Size(644, 402);
             this.dgv_ChiCuadrado.TabIndex = 15;
+            // 
+            // dgv_redux
+            // 
+            this.dgv_redux.AllowUserToAddRows = false;
+            this.dgv_redux.AllowUserToResizeColumns = false;
+            this.dgv_redux.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_redux.Location = new System.Drawing.Point(899, 185);
+            this.dgv_redux.Name = "dgv_redux";
+            this.dgv_redux.RowHeadersVisible = false;
+            this.dgv_redux.Size = new System.Drawing.Size(373, 264);
+            this.dgv_redux.TabIndex = 16;
+            // 
+            // txt_critico
+            // 
+            this.txt_critico.Location = new System.Drawing.Point(1105, 476);
+            this.txt_critico.Name = "txt_critico";
+            this.txt_critico.Size = new System.Drawing.Size(100, 20);
+            this.txt_critico.TabIndex = 17;
+            // 
+            // txt_estadistico
+            // 
+            this.txt_estadistico.Location = new System.Drawing.Point(1105, 502);
+            this.txt_estadistico.Name = "txt_estadistico";
+            this.txt_estadistico.Size = new System.Drawing.Size(100, 20);
+            this.txt_estadistico.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label2.Location = new System.Drawing.Point(1020, 479);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 16);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Valor Critico";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label4.Location = new System.Drawing.Point(979, 506);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(120, 16);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Estadístico Prueba";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.label5.Location = new System.Drawing.Point(977, 545);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 25);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Hipotesis";
+            // 
+            // lbl_final
+            // 
+            this.lbl_final.AutoSize = true;
+            this.lbl_final.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.lbl_final.Location = new System.Drawing.Point(1078, 545);
+            this.lbl_final.Name = "lbl_final";
+            this.lbl_final.Size = new System.Drawing.Size(70, 25);
+            this.lbl_final.TabIndex = 22;
+            this.lbl_final.Text = "label6";
             // 
             // TP3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 606);
+            this.ClientSize = new System.Drawing.Size(1281, 623);
+            this.Controls.Add(this.lbl_final);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txt_estadistico);
+            this.Controls.Add(this.txt_critico);
+            this.Controls.Add(this.dgv_redux);
             this.Controls.Add(this.dgv_ChiCuadrado);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.gpBx_ExpNeg);
@@ -484,6 +572,7 @@
             this.Controls.Add(this.gpBx_Uniforme);
             this.Name = "TP3";
             this.Text = "Trabajo Práctico 3";
+            this.Load += new System.EventHandler(this.TP3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.gpBx_Uniforme.ResumeLayout(false);
@@ -497,10 +586,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtv_nrosRnd)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Muestra)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_Intervalos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ChiCuadrado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_redux)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -540,8 +629,15 @@
         private System.Windows.Forms.RadioButton rB_Box;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.NumericUpDown num_Muestra;
-        private System.Windows.Forms.NumericUpDown num_Intervalos;
         private System.Windows.Forms.DataGridView dgv_ChiCuadrado;
+        private System.Windows.Forms.DataGridView dgv_redux;
+        private System.Windows.Forms.TextBox txt_muestra;
+        private System.Windows.Forms.ComboBox cmb_intervalos;
+        private System.Windows.Forms.TextBox txt_critico;
+        private System.Windows.Forms.TextBox txt_estadistico;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbl_final;
     }
 }

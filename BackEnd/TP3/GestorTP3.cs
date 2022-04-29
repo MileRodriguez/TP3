@@ -11,25 +11,16 @@ namespace TP1SIM.BackEnd.TP3
     class GestorTP3
     {
         Dist distribucion;
+
         PruebaChiCuadrado chiC = new PruebaChiCuadrado();
+
         private double estadisticoPrueba, valorCritico;
 
-        private static readonly double[] valoresCriticos = {
-            3.84, 5.99, 7.81, 9.49, 11.1, 12.6, 14.1, 15.5, 16.9, 18.3, 19.7,
-            21.0, 22.4, 23.7 , 25.0, 26.3, 27.6, 28.9, 30.1, 31.4, 32.7, 33.9,
-            35.2, 36.4, 37.7, 38.9, 40.1, 41.3, 42.6, 43.8
-        };
-
-        private static readonly double[] valoresCriticosGrandes = {
-            0, 0, 0, 43.8, 55.8, 67.5, 79.1, 90.5, 101.9, 113.1, 124.3
-        };
-
-        public void getSHITdone(double[] numeritos, Dist distr, int cantidadIntervalos, int Muestra)
+        public double decidirDistribución(double[] numeritos, Dist distr, int cantidadIntervalos, int Muestra)
         {
-            //DataGridView tabla = cargarTabla(numeritos);
-            distribucion = distr;
             
-            if (distr is Normal){
+            if (distr is Normal)
+            {
                 valorCritico = CalcularValorCritico(cantidadIntervalos, Muestra, 2);
             }
             if (distr is ExponencialNegativa || distr is Poisson)
@@ -41,7 +32,7 @@ namespace TP1SIM.BackEnd.TP3
                 valorCritico = CalcularValorCritico(cantidadIntervalos, Muestra, 0);
             }
 
-                //mostrar las tablas
+            return valorCritico;
         }
 
 
@@ -84,22 +75,88 @@ namespace TP1SIM.BackEnd.TP3
             distribucion.chiCuadrado(muestra, cantidadIntervalosOEventos, tabla);
         }
 
-        protected double CalcularValorCritico(int cantidadIntervalos, int tamanioMuestra, int datosEmpiricos)
+        public void cargarTablaRedux(DataGridView tabla, DataGridView tablaRedux)
         {
-            int gradosLibertad = cantidadIntervalos - 1 - datosEmpiricos;
-
-            if (gradosLibertad < 1) gradosLibertad = 1; // para evitar errores con algunas muestras muy pequeñas 
-
-            if (gradosLibertad <= 30)
-                return valoresCriticos[gradosLibertad - 1];
-
-            gradosLibertad /= 10;
-
-            if (gradosLibertad >= 11)
-                return valoresCriticos[11];
-            return valoresCriticosGrandes[gradosLibertad];
+            distribucion.chiCuadradoRedux(tabla, tablaRedux);
         }
 
+        protected double CalcularValorCritico(int cantidadIntervalos, int tamanioMuestra, int datosEmpiricos)
+        {
+            double[] valoresCriticosNormal = { 11.1, 14.1, 21.0, 27.6 };
+            double[] valoresCriticosPoissonExp = { 12.6, 15.5, 22.4, 28.9 };
+            double[] valoresCriticosUniforme = { 14.1, 16.9, 23.7, 30.1 };
+
+            if(datosEmpiricos == 2)
+            {
+                switch (cantidadIntervalos)
+                {
+                    case 8:
+                        valorCritico = valoresCriticosNormal[0];
+                        break;
+                    case 10:
+                        valorCritico = valoresCriticosNormal[1];
+                        break;
+                    case 15:
+                        valorCritico = valoresCriticosNormal[2];
+                        break;
+                    case 20:
+                        valorCritico = valoresCriticosNormal[3];
+                        break;
+                }
+            }
+
+            if (datosEmpiricos == 1)
+            {
+                switch (cantidadIntervalos)
+                {
+                    case 8:
+                        valorCritico = valoresCriticosPoissonExp[0];
+                        break;
+                    case 10:
+                        valorCritico = valoresCriticosPoissonExp[1];
+                        break;
+                    case 15:
+                        valorCritico = valoresCriticosPoissonExp[2];
+                        break;
+                    case 20:
+                        valorCritico = valoresCriticosPoissonExp[3];
+                        break;
+                }
+            }
+
+            if (datosEmpiricos == 0)
+            {
+                switch (cantidadIntervalos)
+                {
+                    case 8:
+                        valorCritico = valoresCriticosUniforme[0];
+                        break;
+                    case 10:
+                        valorCritico = valoresCriticosUniforme[1];
+                        break;
+                    case 15:
+                        valorCritico = valoresCriticosUniforme[2];
+                        break;
+                    case 20:
+                        valorCritico = valoresCriticosUniforme[3];
+                        break;
+                }
+            }
+
+            return valorCritico;
+
+        }
+
+
+        public void setEstadisticoPrueba(double estadistico)
+        {
+            this.estadisticoPrueba = estadistico;
+        }
+
+        public void setDistribucion(Dist distribucion)
+        {
+            this.distribucion = distribucion;
+        }
         public bool ResultadoExitoso()
         {
             return estadisticoPrueba <= valorCritico;

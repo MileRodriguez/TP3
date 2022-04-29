@@ -21,14 +21,13 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
         GestorTP3 gestor = new GestorTP3();
         Metodos metodos = new Metodos();
 
-        //double[] numeritos;
-
         private void btn_Uniforme_Click(object sender, EventArgs e)
         {
             gpBx_Normal.Visible = false;
             gpBx_Poisson.Visible = false;
             gpBx_ExpNeg.Visible = false;    
             gpBx_Uniforme.Visible = true;
+            cmb_intervalos.Enabled = true;
 
         }
 
@@ -38,6 +37,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             gpBx_Poisson.Visible = false;
             gpBx_ExpNeg.Visible = false;
             gpBx_Uniforme.Visible = false;
+            cmb_intervalos.Enabled = true;
 
         }
 
@@ -47,6 +47,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             gpBx_Normal.Visible = false;
             gpBx_Poisson.Visible = false;
             gpBx_ExpNeg.Visible = true;
+            cmb_intervalos.Enabled = true;
         }
 
         private void btn_Poisson_Click(object sender, EventArgs e)
@@ -55,24 +56,27 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             gpBx_Normal.Visible = false;
             gpBx_ExpNeg.Visible = false;
             gpBx_Poisson.Visible = true;
+            cmb_intervalos.Enabled = false;
         }
 
         private void btn_GenerarExp_Click(object sender, EventArgs e)
         {
             ExponencialNegativa exo = new ExponencialNegativa();
 
-            int N = Convert.ToInt32(num_Muestra.Text);
+            int N = Convert.ToInt32(txt_muestra.Text);
             double[] numeritos = generarNumeros(N);
             double media = 0;
+            gestor.setDistribucion(exo);
+            double valorCritico;
 
-            if (num_Muestra.Text.Equals("") || txt_Lambda.Text.Equals("") && txt_MediaExp.Text.Equals(""))
+            if (txt_muestra.Text.Equals("") || txt_Lambda.Text.Equals("") && txt_MediaExp.Text.Equals(""))
             {
                 MessageBox.Show("Complete los campos necesarios.");
             }
 
             else
             {
-                if (txt_Media.Text != null)
+                if (txt_MediaExp.Text != null)
                 {
                     media = Convert.ToDouble(txt_MediaExp.Text);
                     exo.set(1/media, metodos.ExpNegativa(numeritos, media));
@@ -86,22 +90,50 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
 
                 dtv_nrosRnd.Rows.Clear();
                 dgv_ChiCuadrado.Rows.Clear();
-                gestor.getSHITdone(numeritos, exo, Convert.ToInt32(num_Intervalos.Text), N);
+                dgv_redux.Rows.Clear();
+
                 gestor.cargarTabla(exo.getNumeritos(), dtv_nrosRnd);
-                gestor.cargarTablaHistograma(exo.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                gestor.cargarTablaHistograma(exo.getNumeritos(), Convert.ToInt32(cmb_intervalos.Text), Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                 dtv_nrosRnd.Refresh();
                 dgv_ChiCuadrado.Refresh();
+                gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
+                dgv_redux.Refresh();
 
+            }
+            valorCritico = gestor.decidirDistribución(numeritos, exo, Convert.ToInt32(cmb_intervalos.Text), N);
+
+            gestor.setEstadisticoPrueba(exo.getEstadisticoPrueba());
+
+
+            txt_critico.Text = valorCritico.ToString();
+            txt_estadistico.Text = exo.getEstadisticoPrueba().ToString();
+
+            lbl_final.Visible = true;
+            label5.Visible = true;
+
+            if (gestor.ResultadoExitoso())
+            {
+                lbl_final.Text = "Aprobada";
+                lbl_final.BackColor = Color.Green;
+            }
+            else
+            {
+                lbl_final.Text = "Rechazada";
+                lbl_final.BackColor = Color.Red;
             }
         }
 
 
         private void btn_GenerarPoisson_Click(object sender, EventArgs e)
         {
+            
             Poisson poisson = new Poisson();
-            int N = Convert.ToInt32(num_Muestra.Text);
+            int N = Convert.ToInt32(txt_muestra.Text);
             double[] numeritos = generarNumeros(N);
-            if (num_Muestra.Text.Equals("") || txt_LambdaPoisson.Text.Equals(""))
+
+            gestor.setDistribucion(poisson);
+
+            if (txt_muestra.Text.Equals("") || txt_LambdaPoisson.Text.Equals(""))
             {
                 MessageBox.Show("Complete los campos necesarios.");
             }
@@ -112,19 +144,23 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                 poisson.set(metodos.Poisson(numeritos, Convert.ToInt32(txt_LambdaPoisson.Text)), Convert.ToInt32(txt_LambdaPoisson.Text));
                 dtv_nrosRnd.Rows.Clear();
                 dgv_ChiCuadrado.Rows.Clear();
-                gestor.getSHITdone(numeritos, poisson, Convert.ToInt32(num_Intervalos.Text), N);
+                
                 gestor.cargarTabla(poisson.getNumeritos(), dtv_nrosRnd);
-                gestor.cargarTablaHistograma(poisson.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                gestor.cargarTablaHistograma(poisson.getNumeritos(), 0, Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                 dtv_nrosRnd.Refresh();
                 dgv_ChiCuadrado.Refresh();
+
+
             }
-            }
+            //double valorCritico = gestor.decidirDistribución(numeritos, poisson, Convert.ToInt32(cmb_intervalos.Text), N);
+        }
 
         private void btn_GenerarNormal_Click(object sender, EventArgs e)
         {
             Normal normal = new Normal();
-            int N = Convert.ToInt32(num_Muestra.Text);
+            int N = Convert.ToInt32(txt_muestra.Text);
             double[] numeritos = new double[0];
+            gestor.setDistribucion(normal);
 
             if (!rB_Box.Checked && !rB_Convolucion.Checked)
             {
@@ -132,7 +168,7 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             }
             else
             {
-                if(num_Muestra.Text.Equals("") || txt_Varianza.Text.Equals("") || txt_Media.Text.Equals(""))
+                if(txt_muestra.Text.Equals("") || txt_Varianza.Text.Equals("") || txt_Media.Text.Equals(""))
                 {
                     MessageBox.Show("Complete los campos necesarios.");
                 }
@@ -163,11 +199,42 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
 
                         dtv_nrosRnd.Rows.Clear();
                         dgv_ChiCuadrado.Rows.Clear();
-                        gestor.getSHITdone(numeritos, normal, Convert.ToInt32(num_Intervalos.Text), N);
+                        dgv_redux.Rows.Clear();
+
+                        double valorCritico = gestor.decidirDistribución(numeritos, normal, Convert.ToInt32(cmb_intervalos.Text), N);
+
                         gestor.cargarTabla(normal.getNumeritos(), dtv_nrosRnd);
-                        gestor.cargarTablaHistograma(normal.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                        gestor.cargarTablaHistograma(normal.getNumeritos(), Convert.ToInt32(cmb_intervalos.Text), Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                         dtv_nrosRnd.Refresh();
                         dgv_ChiCuadrado.Refresh();
+                        gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
+                        dgv_redux.Refresh();
+
+                        gestor.setEstadisticoPrueba(normal.getchiAcu());
+
+                        
+                        txt_critico.Text = valorCritico.ToString();
+                        txt_estadistico.Text = normal.getchiAcu().ToString();
+
+                        lbl_final.Visible = true;
+                        label5.Visible = true;
+
+                        if (gestor.ResultadoExitoso())
+                        {
+                            lbl_final.Text = "Aprobada";
+                            lbl_final.BackColor = Color.Green;
+                        }
+                        else
+                        {
+                            lbl_final.Text = "Rechazada";
+                            lbl_final.BackColor = Color.Red;
+                        }
+
+                        
+
+
+
+                       
                     }
                 }
             }
@@ -177,8 +244,11 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
         private void btn_GenerarUniforme_Click(object sender, EventArgs e)
         {
             Uniforme uniforme = new Uniforme();
-            int N = Convert.ToInt32(num_Muestra.Text);
-            if (num_Muestra.Text.Equals("") || txt_A.Text.Equals("") || txt_B.Text.Equals(""))
+            int N = Convert.ToInt32(txt_muestra.Text);
+            gestor.setDistribucion(uniforme);
+            double[] numeritos = new double[0];
+
+            if (txt_muestra.Text.Equals("") || txt_A.Text.Equals("") || txt_B.Text.Equals(""))
             {
                 MessageBox.Show("Complete los campos necesarios.");
             }
@@ -190,17 +260,36 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                 }
                 else
                 {
-                    double[] numeritos = generarNumeros(N);
-                    uniforme.set(metodos.Uniforme(numeritos, Convert.ToInt32(txt_A.Text), Convert.ToInt32(txt_B.Text)), Convert.ToInt32(num_Intervalos.Text));
+                    numeritos = generarNumeros(N);
+                    uniforme.set(metodos.Uniforme(numeritos, Convert.ToInt32(txt_A.Text), Convert.ToInt32(txt_B.Text)), Convert.ToInt32(cmb_intervalos.Text));
 
+                    dgv_redux.Rows.Clear();
                     dtv_nrosRnd.Rows.Clear();
                     dgv_ChiCuadrado.Rows.Clear();
-                    gestor.getSHITdone(numeritos, uniforme, Convert.ToInt32(num_Intervalos.Text), N);
                     gestor.cargarTabla(uniforme.getNumeritos(), dtv_nrosRnd);
-                    gestor.cargarTablaHistograma(uniforme.getNumeritos(), Convert.ToInt32(num_Intervalos.Text), Convert.ToInt32(num_Muestra.Text), dgv_ChiCuadrado);
+                    gestor.cargarTablaHistograma(uniforme.getNumeritos(), Convert.ToInt32(cmb_intervalos.Text), Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                     dtv_nrosRnd.Refresh();
                     dgv_ChiCuadrado.Refresh();
                 }
+            }
+            double valorCritico = gestor.decidirDistribución(numeritos, uniforme, Convert.ToInt32(cmb_intervalos.Text), N);
+
+            gestor.setEstadisticoPrueba(uniforme.getEstadisticoPrueba());
+            txt_critico.Text = valorCritico.ToString();
+            txt_estadistico.Text = uniforme.getEstadisticoPrueba().ToString();
+
+            lbl_final.Visible = true;
+            label5.Visible = true;
+
+            if (gestor.ResultadoExitoso())
+            {
+                lbl_final.Text = "Aprobada";
+                lbl_final.BackColor = Color.Green;
+            }
+            else
+            {
+                lbl_final.Text = "Rechazada";
+                lbl_final.BackColor = Color.Red;
             }
         }
 
@@ -222,5 +311,10 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
             return nros;
         }
 
+        private void TP3_Load(object sender, EventArgs e)
+        {
+            lbl_final.Visible = false;
+            label5.Visible = false;
+        }
     }
 }

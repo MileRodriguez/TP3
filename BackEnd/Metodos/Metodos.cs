@@ -15,14 +15,14 @@ namespace TP1SIM.BackEnd.Metodos
 
             for (int i = 0; i < nums.Length; i++)
             {
-                updated_nums[i] = -avg * Math.Log(1 - nums[i]);
+                updated_nums[i] = Math.Round(-avg * Math.Log(1 - nums[i]), 4);
 
             }
 
             return updated_nums;
         }
 
-        public double[] Normal_conv(double[] nums, double avg, double sd)
+        public double[] Normal_conv(double[] nums, double avg, double var)
         {
             double[] updated_nums = new double[nums.Length/12];
             int count = 0;
@@ -30,13 +30,13 @@ namespace TP1SIM.BackEnd.Metodos
             int ciclo = 0;
 
 
-            for (int i = 0; i < updated_nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 sum += nums[i];
                 count++;
                 if (count == 12)
                 {
-                    updated_nums[ciclo] = (sum - 6) * sd + avg;
+                    updated_nums[ciclo] = Math.Round((sum - 6) * Math.Sqrt(var) + avg, 4);
                     count = 0;
                     sum = 0;
                     ciclo++;
@@ -46,36 +46,24 @@ namespace TP1SIM.BackEnd.Metodos
             return updated_nums;
         }
 
-        public double[] Normal_box(double[] nums, double avg, double sd)
+        public double[] Normal_box(double[] nums, double avg, double var)
         {
             double[] updated_nums = new double[nums.Length/2];
             bool flag_cos = true;
-
-            for (int i = 1; i < updated_nums.Length; i += 2)
-            {
-                if (flag_cos)
+            if (flag_cos)
+            for (int i = 2; i < nums.Length+2; i+=2)
                 {
-                    if(i == 1)
+                    if (flag_cos)
                     {
-                        updated_nums[i - 1] = (Math.Sqrt(-2 * Math.Log(nums[i - 1])) * Math.Cos(2 * Math.PI * nums[i])) * sd + avg;
+                        updated_nums[(i / 2) - 1] = Math.Round(Math.Sqrt(-2 * Math.Log(nums[i - 2])) * Math.Cos(2 * Math.PI * nums[i - 1]) * Math.Sqrt(var) + avg, 4);
+                        flag_cos = false;
                     }
                     else
                     {
-                        updated_nums[i - 2] = (Math.Sqrt(-2 * Math.Log(nums[i - 2])) * Math.Cos(2 * Math.PI * nums[i])) * sd + avg;
+                        updated_nums[(i / 2) - 1] = Math.Round(Math.Sqrt(-2 * Math.Log(nums[i - 2])) * Math.Sin(2 * Math.PI * nums[i - 1]) * Math.Sqrt(var) + avg, 4);
+                        flag_cos = true;
                     }
-                    flag_cos = false;
                 }
-                else
-                {
-                    updated_nums[i - 2] = (Math.Sqrt(-2 * Math.Log(nums[i - 1])) * Math.Sin(2 * Math.PI * nums[i])) * sd + avg;
-                    flag_cos = true;
-                }
-
-                if (nums.Length - 1f / (i + 2f) < 1)
-                {
-                    break;
-                }
-            }
             return updated_nums;
         }
 
@@ -91,14 +79,23 @@ namespace TP1SIM.BackEnd.Metodos
             {
                 p *= nums[i++];
                 x++;
+
                 if(p <= a)
                 {
                     updated_nums[count++] = x;
                     x = -1;
                     p = 1;
                 }
+
+                if(i == nums.Length-1 && count != nums.Length-1)
+                {
+                    nums = combustible(nums.Length);
+                    i = 0;
+                }
+
+
             }
-            while (i < nums.Length);
+            while (count < updated_nums.Length);
             return updated_nums;
         }
 
@@ -107,9 +104,21 @@ namespace TP1SIM.BackEnd.Metodos
             double[] updated_nums = new double[nums.Length];
             for (int i = 0; i < nums.Length; i++)
             {
-                updated_nums[i] = a + nums[i] * (b - a);
+                updated_nums[i] = Math.Round(a + nums[i] * (b - a), 4);
             }
             return updated_nums;
+        }
+
+        private double[] combustible(int N)
+        {
+            Random rnd = new Random();
+            double[] nros = new double[N];
+            for (int j = 0; j < N; j++)
+            {
+                nros[j] = (rnd.NextDouble());
+            }
+
+            return nros;
         }
     }
 }
