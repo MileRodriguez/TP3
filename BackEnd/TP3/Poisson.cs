@@ -86,12 +86,8 @@ namespace TP1SIM.BackEnd.TP3
                         row.CreateCells(tabRedux, cells);
                         tabRedux.Rows.Add(row);
                     }
-
                 }
-
             }
-
-           
         }
 
         public int[] getEventos(int[] numeritos)

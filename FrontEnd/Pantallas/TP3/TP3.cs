@@ -150,8 +150,8 @@ namespace TP1SIM.FrontEnd.Pantallas.TP3
                 gestor.cargarTablaHistograma(poisson.getNumeritos(), 0, Convert.ToInt32(txt_muestra.Text), dgv_ChiCuadrado);
                 dtv_nrosRnd.Refresh();
                 dgv_ChiCuadrado.Refresh();
-                //gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
-                //dgv_redux.Refresh();
+                gestor.cargarTablaRedux(dgv_ChiCuadrado, dgv_redux);
+                dgv_redux.Refresh();
 
 
             }
