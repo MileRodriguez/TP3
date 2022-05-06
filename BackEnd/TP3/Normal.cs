@@ -10,27 +10,83 @@ namespace TP1SIM.BackEnd.TP3
     class Normal : Dist
     {
         private double media;
-        private double[] numeritos;
         private double varianza;
-        private double chiAcu;
 
-        public void set(double varianza, double media, double[] numeritos)
+        public void setVarianza(double varianza)
         {
-            this.varianza = varianza;
+            this.varianza= varianza;
+        }
+
+        public void setMedia(double media)
+        {
             this.media = media;
-            this.numeritos = numeritos;
         }
 
-        public double[] getNumeritos()
+        public double getMedia()
         {
-            return this.numeritos;
+            return this.media;
         }
 
-        public override void chiCuadrado(int muestra, int cantidadIntervalos, DataGridView tabla)
+        public double getVarianza()
+        {
+            return this.varianza;
+        }
+
+        public void pruebaKS(int cantidadIntervalos, DataGridView tabla)
+        {
+            double min = numeros.Min();
+            double max = numeros.Max();
+            double paso = ((max - min) / cantidadIntervalos);
+            double foAC, feAC, maximo;
+            foAC = feAC = maximo = 0;
+
+
+            tabla.ColumnCount = 11;
+            tabla.Columns[0].Name = "Intervalo";
+            tabla.Columns[1].Name = "Limite Inferior";
+            tabla.Columns[2].Name = "Limite Superior";
+            tabla.Columns[3].Name = "Frecuencia Observada";
+            tabla.Columns[4].Name = "Frecuencia Esperada";
+            tabla.Columns[5].Name = "P.Observada";
+            tabla.Columns[6].Name = "P.Esperada";
+            tabla.Columns[7].Name = "P.Acumulada Observada";
+            tabla.Columns[8].Name = "P.Acumulada Esperada";
+            tabla.Columns[9].Name = "Diferencia";
+            tabla.Columns[10].Name = "Maximo";
+
+            for (int i = 0; i < cantidadIntervalos; i++)
+            {
+
+                double limInf = Math.Round(min + (paso * i), 4);
+                double limSup = Math.Round(min + (paso * (i + 1)), 4);
+                double fo = numeros.Count(numerito => limInf <= numerito && numerito < limSup);
+                double fe = Math.Round(CalculoFe(numeros.Length, this.media, this.varianza, limSup, limInf));
+                double foP = Math.Round(fo / numeros.Length, 4);
+                double feP = Math.Round(fe / numeros.Length, 4);
+                foAC += foP;
+                feAC += feP;
+                double diferencia = Math.Round(foAC - feAC, 4);
+                if (i == 0)
+                {
+                    maximo = Math.Abs(diferencia);
+                }
+                else
+                {
+                    if (Math.Abs(diferencia) > maximo)
+                    {
+                        maximo = Math.Abs(diferencia);
+                    }
+                }
+                tabla.Rows.Add(i, limInf, limSup, fo, fe, foP, feP, foAC, feAC, Math.Abs(diferencia), maximo);
+            }
+            estadisticoPrueba = maximo;
+        }
+
+        public override void chiCuadrado(int cantidadIntervalos, DataGridView tabla)
         {
 
-            double min = numeritos.Min();
-            double max = numeritos.Max();
+            double min = numeros.Min();
+            double max = numeros.Max();
 
             double paso = ((max - min) / cantidadIntervalos);
             double fe = 0;
@@ -52,8 +108,8 @@ namespace TP1SIM.BackEnd.TP3
 
                 limInf = Math.Round(min + (paso * i), 4);
                 limSup = Math.Round(min + (paso * (i + 1)), 4);
-                fe = Math.Round(CalculoFe(numeritos.Length, this.media, this.varianza, limSup, limInf), 4);
-                fo = numeritos.Count(numerito => limInf <= numerito && numerito < limSup);
+                fe = Math.Round(CalculoFe(numeros.Length, this.media, this.varianza, limSup, limInf));
+                fo = numeros.Count(numerito => limInf <= numerito && numerito < limSup);
 
                 Object[] cells = {i+1, limInf, limSup, fo, fe};
 
@@ -132,7 +188,7 @@ namespace TP1SIM.BackEnd.TP3
                     
                 }
             }
-            setChiAcu(chiA);
+            estadisticoPrueba = chiA;
         }
 
         public double CalculoFe(int N, double avg, double varianza, double limSup, double limInf)
@@ -149,16 +205,59 @@ namespace TP1SIM.BackEnd.TP3
 
         }
 
-        public void setChiAcu(double chiAcu)
+
+        public void generarNumeros(double[] nums, int choice)
         {
-            this.chiAcu = chiAcu;
+            switch (choice)
+            {
+                case 0:
+                    numeros = new double[nums.Length / 2];
+                    bool flag_cos = true;
+                    if (flag_cos)
+                        for (int i = 2; i < nums.Length + 2; i += 2)
+                        {
+                            if (flag_cos)
+                            {
+                                numeros[(i / 2) - 1] = Math.Round(Math.Sqrt(-2 * Math.Log(nums[i - 2])) * Math.Cos(2 * Math.PI * nums[i - 1]) * Math.Sqrt(varianza) + media, 4);
+                                flag_cos = false;
+                            }
+                            else
+                            {
+                                numeros[(i / 2) - 1] = Math.Round(Math.Sqrt(-2 * Math.Log(nums[i - 2])) * Math.Sin(2 * Math.PI * nums[i - 1]) * Math.Sqrt(varianza) + media, 4);
+                                flag_cos = true;
+                            }
+                        }
+                    break;
+                case 1:
+                    numeros = new double[nums.Length / 12];
+                    int count = 0;
+                    double sum = 0;
+                    int ciclo = 0;
+
+
+                    for (int i = 0; i < nums.Length; i++)
+                    {
+                        sum += nums[i];
+                        count++;
+                        if (count == 12)
+                        {
+                            numeros[ciclo] = Math.Round((sum - 6) * Math.Sqrt(varianza) + media, 4);
+                            count = 0;
+                            sum = 0;
+                            ciclo++;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+
+            }
         }
 
-        public double getchiAcu()
+        public double getEstadisticoPrueba()
         {
-            return chiAcu;
+            return estadisticoPrueba;
         }
-
 
 
 

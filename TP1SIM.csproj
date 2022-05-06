@@ -54,7 +54,6 @@
     <Compile Include="BackEnd\Congruencial\metodoCongruencial.cs" />
     <Compile Include="BackEnd\ConteoFrecuencia.cs" />
     <Compile Include="BackEnd\Metodos\Distribucion.cs" />
-    <Compile Include="BackEnd\Metodos\Metodos.cs" />
     <Compile Include="BackEnd\PruebasBondad\PruebaBondad.cs" />
     <Compile Include="BackEnd\PruebasBondad\PruebaChiCuadrado.cs" />
     <Compile Include="BackEnd\PruebasBondad\PruebaKS.cs" />
@@ -65,14 +64,6 @@
     <Compile Include="BackEnd\TP3\GestorTP3.cs" />
     <Compile Include="BackEnd\TP3\Normal.cs" />
     <Compile Include="BackEnd\TP3\Poisson.cs" />
-    <Compile Include="BackEnd\TP3\tablaRND.cs">
-      <DependentUpon>tablaRND.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BackEnd\TP3\tablaRND.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tablaRND.xsd</DependentUpon>
-    </Compile>
     <Compile Include="BackEnd\TP3\Uniforme.cs" />
     <Compile Include="FrontEnd\Pantallas\FrmPruebaBondad.cs">
       <SubType>Form</SubType>
@@ -149,17 +140,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="BackEnd\TP3\tablaRND.xsc">
-      <DependentUpon>tablaRND.xsd</DependentUpon>
-    </None>
-    <None Include="BackEnd\TP3\tablaRND.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>tablaRND.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="BackEnd\TP3\tablaRND.xss">
-      <DependentUpon>tablaRND.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
